@@ -17,14 +17,14 @@ def userinfo(username):
     return accountid
         
 def menu():
-    print('----------------------------------------------------------------')
-    print('@TravaLOL - 1. Username')
-    print('@TravaLOL - 2. SummonerID')
-    print('@TravaLOL - 3. Check User')
-    print('@TravaLOL - 4. Create a Lobby (TFT Tutorial)')
-    print('@TravaLOL - 5. Credits')
-    print('----------------------------------------------------------------')
-    selection = int(input('Choose a option: '))
+    print('+--------------------------------------------------------------+')
+    print("@TravaLOL - 1. Utilizar 'nickname' do usuario para travar.")
+    print("@TravaLOL - 2. Utilizar o 'SummonerID' do usuario para travar.")
+    print("@TravaLOL - 3. Verificar o 'SummonerID' do usuario utilizando o 'nickname'.")
+    print("@TravaLOL - 4. Criar um lobby. (Clash)")
+    print("@TravaLOL - 5. Creditos.")
+    print('+--------------------------------------------------------------+')
+    selection = int(input('Escola uma opção: '))
     global accountid
     if selection == 1:  
         user = input('Username: ')
@@ -36,15 +36,15 @@ def menu():
         user = input('Username: ')
         userformated = urllib.parse.quote(user)
         accountid = userinfo(userformated)
-        print('----------------------------------------------------------------')
+        print('+--------------------------------------------------------------+')
         print('@TravaLOL - SummonerID: %s' % accountid)
         menu()
     if selection == 4:
         createlobby()
         menu()
     if selection == 5:
-        print('----------------------------------------------------------------')
-        print("@TravaLOL - Made by: @dollyXtoddy")
+        print('+--------------------------------------------------------------+')
+        print("@TravaLOL - Feito por: @dollyXtoddy")
         menu()    
     ## // Antigo sistema de whitelist //
     #try:
@@ -58,13 +58,13 @@ def menu():
     #except urllib.error.URLError as e:
         #print(e.reason)        
     while True:
-        print('-------')
+        print('+-----+')
         r = lolcapi.post('/lol-lobby/v2/lobby/invitations', [{"toSummonerId":accountid}])
-        print('@TravaLOL - Invite: %s (%s)' % (r.status_code, accountid))
-        print('-------')
+        print('@TravaLOL - Convite Enviado: %s (%s)' % (r.status_code, accountid))
+        print('+-----+')
         r2 = lolcapi.post('/lol-lobby/v2/lobby/members/%s/kick' % accountid)
-        print('@TravaLOL - Kick: %s (%s)' % (r2.status_code, accountid))
-        print('-------')
+        print('@TravaLOL - Convite Removido: %s (%s)' % (r2.status_code, accountid))
+        print('+-----+')
     
 try:
     menu()
